@@ -123,7 +123,7 @@ const productSlice = createSlice({
   extraReducers: (build) => {
     build
       .addCase(fetchAllProducts.fulfilled, (state, action) => {
-        if (action.payload !== undefined && action.payload.data && action.payload.status === 200) return action.payload.data;
+        if (!(action.payload instanceof AxiosError) && action.payload !== undefined && action.payload.data && action.payload.status === 200) return action.payload.data;
         else return state;
       })
 
@@ -137,8 +137,7 @@ const productSlice = createSlice({
       })
 
       .addCase(addProductToServer.fulfilled, (state, action) => {
-        if (action.payload !== undefined) state.push(action.payload);
-        else return state;
+        state.push(action.payload);
       })
 
       .addCase(deleteProduct.fulfilled, (state, action) => {
@@ -152,9 +151,8 @@ const productSlice = createSlice({
         }
       })
 
-      // Testing using spread operator
       .addCase(addProductAndImage.fulfilled, (state, action) => {
-        if (action.payload !== undefined) return [...state, action.payload];
+        if (!(action.payload instanceof AxiosError) && action.payload !== undefined) return [...state, action.payload];
         else return [...state];
       });
   },
