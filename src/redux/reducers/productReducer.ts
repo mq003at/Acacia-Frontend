@@ -137,7 +137,7 @@ const productSlice = createSlice({
       })
 
       .addCase(addProductToServer.fulfilled, (state, action) => {
-        state.push(action.payload);
+        return state;
       })
 
       .addCase(deleteProduct.fulfilled, (state, action) => {
