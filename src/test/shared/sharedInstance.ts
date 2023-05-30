@@ -2,11 +2,11 @@ import axios from 'axios';
 
 const axiosInstance = axios.create({
   // baseURL: 'https://api.escuelajs.co/api/v1/',
-  baseURL: 'http://localhost:5002/'
+  baseURL: 'https://acacia-backend.azurewebsites.net/'
 });
 
 export const backupAxiosInstance = axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: 'http://localhost:5002',
 });
 
 export default axiosInstance;
