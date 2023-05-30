@@ -152,8 +152,11 @@ const productSlice = createSlice({
       })
 
       .addCase(addProductAndImage.fulfilled, (state, action) => {
-        if (!(action.payload instanceof Error) && action.payload !== undefined) return [...state, action.payload];
-        else return [...state];
+        if (!(action.payload instanceof Error) && action.payload !== undefined) {
+          return [...state, action.payload];
+        } else {
+          return state;
+        }
       });
   },
 });
