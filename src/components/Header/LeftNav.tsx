@@ -1,6 +1,5 @@
 import { Box, IconButton } from "@mui/material";
 import logoImage from "../../assets/logo.png";
-import { middleNavStyles as style } from '../../styles/mui/HeaderStyles';
 import { useNavigate } from "react-router-dom";
 
 const LeftNav = () => {
