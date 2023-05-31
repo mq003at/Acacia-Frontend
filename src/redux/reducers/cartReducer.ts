@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { addNotification } from '../../components/Functions/common';
 import { Cart, CartReducer, CartRequest } from '../../types/common';
 import axiosInstance from '../../test/shared/sharedInstance';
-import axios, { AxiosError, AxiosResponse } from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { RootState } from '../store';
 
 export const fetchUserCart = createAsyncThunk('fetchUserCart', async ({ id, receivedToken }: { id: number, receivedToken?: string }, { getState }) => {

@@ -5,7 +5,7 @@ import { useAppSelector } from '../../hooks/reduxHook';
 import { Product, Category } from '../../types/common';
 import ProductBox from './ProductBox';
 import { addNotification } from '../Functions/common';
-import AddCategoryModel from './AddCategoryModal';
+// import AddCategoryModel from './AddCategoryModal';
 
 const ProductsList: React.FC = () => {
   const [isAsc, revertSort] = useState(true);
@@ -25,8 +25,8 @@ const ProductsList: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [viewProducts, setViewProducts] = useState<Product[]>([]);
 
-  const [showCategoryModel, setShowCategoryModel] = useState(false);
-  const [showProductModel, setShowProductModel] = useState(false);
+  // const [showCategoryModel, setShowCategoryModel] = useState(false);
+  // const [showProductModel, setShowProductModel] = useState(false);
 
   useEffect(() => {
     let tempArr: Product[] = [];
@@ -142,13 +142,6 @@ const ProductsList: React.FC = () => {
                 Admin Commands
               </Typography>
               <ListItem key={`list-adminCommand`} disablePadding>
-                {/* <ListItemButton onClick={() => setCategoryModel(true)}>Add New Category</ListItemButton>
-                <ListItemButton onClick={() => setProductModel(true)}>Add New Product</ListItemButton>
-                <AddCategoryModel open={showCategoryModel} onClose={() => setCategoryModel(!showCategoryModel)} />
-                <AddProductModel open={showProductModel} onClose={() =>  */}
-                  
-                  
-                  {/* (!showProductModel)} /> */}
               </ListItem>
             </Box>
           </Grid>

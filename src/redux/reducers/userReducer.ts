@@ -3,7 +3,6 @@ import { AxiosError, AxiosResponse } from 'axios';
 import { addNotification } from '../../components/Functions/common';
 import axiosInstance from '../../test/shared/sharedInstance';
 import { AccountCredential, AccountCredentialResponse, User, UserReducer } from '../../types/user';
-import { fetchUserCart } from './cartReducer';
 
 
 // Fetch all users from API (scappred. Will be replaced by fetchAllUsersName)

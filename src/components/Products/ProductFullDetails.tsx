@@ -10,7 +10,7 @@ import { useAppDispatch } from '../../hooks/reduxHook';
 import { addItemToCart } from '../../redux/reducers/cartReducer';
 
 const ProductFullDetails: React.FC<{ catName: string; product: Product;}> = (props) => {
-  const { catName, product } = props;
+  const { product } = props;
   const [quantity, setQuantity] = useState(1);
   const dispatch = useAppDispatch();
 

@@ -1,5 +1,5 @@
-import React, { useRef } from 'react';
-import { FormControl, InputLabel, MenuItem, Select, InputBase, Box, Button } from '@mui/material';
+import { useRef } from 'react';
+import { FormControl, MenuItem, Select, InputBase, Box, Button } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { middleNavStyles as style } from '../../styles/mui/HeaderStyles';
 import { useNavigate } from 'react-router-dom';

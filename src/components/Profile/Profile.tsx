@@ -1,4 +1,4 @@
-import { Box, Button, Card, CardContent, Grid } from '@mui/material';
+import { Box, CardContent, Grid } from '@mui/material';
 import UserDetails from './UserDetails';
 import Cart from '../Cart/Cart';
 
