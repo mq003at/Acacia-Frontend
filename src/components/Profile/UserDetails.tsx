@@ -53,17 +53,6 @@ const UserDetails: React.FC = () => {
             image={currentUser?.avatar ? currentUser.avatar : `https://ui-avatars.com/api/?name=${currentUser?.firstName} ${currentUser?.lastName}&size=450`}
             alt={currentUser?.firstName}
           ></CardMedia>
-          {/* <Grid container spacing={'1.5em'}>
-            <Grid className="profile__grid" item xs={6}>
-              <Typography>Profile Created</Typography>
-              <Typography>{currentUser?.creationAt?.substring(0, 10)}</Typography>
-            </Grid>
-            <Grid className="profile__grid" item xs={6}>
-              <Typography>Profile Updated</Typography>
-              <Typography>{currentUser?.updatedAt?.substring(0, 10)}</Typography>
-            </Grid>
-          </Grid> */}
-          {/* <Typography className="profile__sectionHeader">Do you want to change your profile?</Typography> */}
           <TextField
             className="profile__textField"
             id="firstName"
@@ -119,7 +108,7 @@ const UserDetails: React.FC = () => {
       <CardContent>
         <CardMedia
           component="img"
-          sx={{ width: 150 }}
+          sx={{ width: 150, alignItems: 'center' }}
           image={currentUser?.avatar ? currentUser.avatar : `https://ui-avatars.com/api/?name=${currentUser?.firstName} ${currentUser?.lastName}&size=450`}
           alt={currentUser?.firstName}
         ></CardMedia>

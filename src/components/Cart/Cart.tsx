@@ -16,10 +16,10 @@ const Cart: React.FC = () => {
   return (
     <Box className="cart__wrapper">
       {cart.cart?.length === 0 ? <Typography>Your cart is empty.</Typography> : (
-        cart.cart?.map(item => <CartItemDetails cartItem={item} />)
+        cart.cart?.map(item => <CartItemDetails cartItem={item} key={`cart-item-${item.product.id}`} />)
       )}      
     </Box>
-  );
+  );            
 };
 
 export default Cart;

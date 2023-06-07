@@ -10,7 +10,7 @@ import { fetchUserCart } from '../../redux/reducers/cartReducer';
 const LogUser: React.FC = (props) => {
   const user = useAppSelector((state) => state.userReducer);
   const cart = useAppSelector((state) => state.cartReducer);
-  
+
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -21,7 +21,7 @@ const LogUser: React.FC = (props) => {
     if (user.currentUser && user.accessToken) {
       dispatch(fetchUserCart({ id: user.currentUser.id }));
     }
-  
+
     if (user.accessToken && cart.cart) {
       navigate("/profile");
     }
@@ -29,7 +29,9 @@ const LogUser: React.FC = (props) => {
 
   const validationSchema = Yup.object().shape({
     email: Yup.string().email().required('Email is required'),
-    password: Yup.string().min(6, 'Password should be at least 6 characters').required('Password is Required'),
+    password: Yup.string().min(6, 'Password should be at least 6 characters')
+      .matches(/[A-Z]/, 'Password should contain at least one capitalized letter')
+      .required('Password is Required'),
   });
 
   const logUserForm = useFormik({

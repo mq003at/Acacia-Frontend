@@ -42,7 +42,7 @@ const CartItemDetails: React.FC<{ cartItem: CartItem }> = (props) => {
   }
 
   function handleRemove() {
-    if (product && quantity) dispatch(addItemToCart({ productId: product.id, quantity: quantity }));
+    if (product && quantity) dispatch(addItemToCart({ productId: product.id, quantity: 0 }));
   }
 
   useEffect(() => {

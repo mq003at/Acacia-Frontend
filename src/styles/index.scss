@@ -1,4 +1,4 @@
-body{
+body {
   margin: 0;
 }
 .App {
@@ -174,11 +174,18 @@ Product Full Details
 
 .product-f-details {
   &.show-cat {
-    margin-left: 0.5em;
+    margin-left: 2.5%;
+    margin-bottom: 1.5%;
   }
   &.mainInfo p {
     line-height: 1.5em !important;
     font-size: 1.5em !important;
+  }
+  &.mainInfo-wrapper {
+    align-self: center;
+  }
+  &.MuiCard-root {
+    box-shadow: 20px 20px 30px -1px rgba(0, 0, 0, 0.7), 0px 0px 1px 0px rgba(0, 0, 0, 0.14), 0px 3px 3px 0px rgba(0, 0, 0, 0.12) !important;
   }
 
   &.wrapper {
@@ -222,7 +229,7 @@ Product Full Details
 
 .buyout-container {
   display: flex;
-  margin-top: 5%;
+  margin-top: 1.5em;
 }
 
 .price {
@@ -493,6 +500,54 @@ Login User
       border-radius: 0px 10px 10px 0px;
       background-color: #8ea616 !important;
     }
+  }
+}
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  background-color: rgb(255, 255, 255);
+  border: 2px solid rgb(0, 0, 0);
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 11px 15px -7px, rgba(0, 0, 0, 0.14) 0px 24px 38px 3px, rgba(0, 0, 0, 0.12) 0px 9px 46px 8px;
+  padding: 32px;
+  text-align: center;
+
+  & .name-input {
+    width: 80%;
+    margin-top: 2em;
+    margin-bottom: 2em;
+  }
+
+  & .images-input {
+    width: 80%;
+    margin-bottom: 2em;
+  }
+
+  & .price-input {
+    width: 80%;
+    margin-bottom: 2em;
+  }
+
+  & .description-input {
+    width: 80%;
+    margin-bottom: 2em;
+  }
+
+  & .cat-input {
+    width: 80%;
+    margin-bottom: 2em;
+  }
+
+  & .modal-button {
+    margin-right: 2em;
+  }
+
+  & .heading {
+    font-size: 1.5em;
+    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
   }
 }
 

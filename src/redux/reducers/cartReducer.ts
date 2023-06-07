@@ -2,19 +2,19 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { addNotification } from '../../components/Functions/common';
 import { Cart, CartReducer, CartRequest } from '../../types/common';
 import axiosInstance from '../../test/shared/sharedInstance';
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 import { RootState } from '../store';
 
-export const fetchUserCart = createAsyncThunk('fetchUserCart', async ({ id, receivedToken }: { id: number, receivedToken?: string }, { getState }) => {
+export const fetchUserCart = createAsyncThunk('fetchUserCart', async ({ id, receivedToken }: { id: number; receivedToken?: string }, { getState }) => {
   try {
-    let token = "";
+    let token = '';
     if (receivedToken) token = receivedToken;
     else {
       const state = getState() as RootState;
-      token =  state.userReducer.accessToken?.token || "";
+      token = state.userReducer.accessToken?.token || '';
     }
 
-    console.log("token", token)
+    console.log('token', token);
 
     if (token === '') {
       addNotification('Error', `You have to login first to use this function.`, 'danger');
@@ -22,12 +22,13 @@ export const fetchUserCart = createAsyncThunk('fetchUserCart', async ({ id, rece
       const headers = {
         Authorization: `Bearer ${token}`,
       };
-      const res: AxiosResponse<Cart | Error, any> = await axiosInstance.get(`carts/${id}`, { headers });
-      console.log("res", res.data);
-      if (!(res.data instanceof Error)) return res.data;
+      const res: AxiosResponse<Cart, any> = await axiosInstance.get(`carts/${id}`, { headers });
+      return res.data;
     }
   } catch (e: any) {
-    throw new Error(e.message);
+    const error = e as AxiosError;
+    const message = JSON.stringify(error.response?.data) || error.message;
+    addNotification('Failure', message, 'danger');
   }
 });
 
@@ -44,15 +45,14 @@ export const addItemToCart = createAsyncThunk('addItemToCart', async ({ productI
       const headers = {
         Authorization: `Bearer ${token}`,
       };
-      const res: AxiosResponse<Cart | Error, any> = await axiosInstance.post(`carts/${userId}/add-item`, { productId: productId, quantity: quantity }, { headers });
-      if (res.data instanceof Error) addNotification('Failure', `There is a problem submitting your cart request. Please retry.`, 'danger');
-      else {
-        addNotification('Cart updated', `Your cart's status has been changed.`, 'success');
-        return res.data;
-      }
+      const res: AxiosResponse<Cart, any> = await axiosInstance.post(`carts/${userId}/add-item`, { productId: productId, quantity: quantity }, { headers });
+      addNotification('Cart updated', `Your cart's status has been changed.`, 'success');
+      return res.data;
     }
-  } catch (e: any) {
-    throw new Error(e.message);
+  } catch (e) {
+    const error = e as AxiosError;
+    const message = JSON.stringify(error.response?.data) || error.message;
+    addNotification('Failure', message, 'danger');
   }
 });
 

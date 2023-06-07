@@ -2,13 +2,13 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AxiosError, AxiosResponse } from 'axios';
 import { addNotification } from '../../components/Functions/common';
 import axiosInstance from '../../test/shared/sharedInstance';
-import { AddCategoryWithImageParams, Category, ResponseImage, UpdatedCategory } from '../../types/common';
+import { AddCategoryWithImageParams, Category, CategoryAdd, ResponseImage, UpdatedCategory } from '../../types/common';
 
 // Fetch all categories
 export const fetchAllCategories = createAsyncThunk('fetchAllCategory', async () => {
   try {
-    const res: AxiosResponse<Category[] | Error, any> = await axiosInstance.get('categories');
-    if (!(res.data instanceof Error)) return res.data;
+    const res: AxiosResponse<Category[], any> = await axiosInstance.get('categories');
+    return res.data;
   } catch (e) {
     const error = e as AxiosError;
     addNotification(`ERROR ${error.code}`, `${error.message}`, 'danger');
@@ -16,10 +16,10 @@ export const fetchAllCategories = createAsyncThunk('fetchAllCategory', async () 
 });
 
 // Post in a category
-export const addCategoryToServer = createAsyncThunk('createCategoryToServer', async (category: Category) => {
+export const addCategoryToServer = createAsyncThunk('createCategoryToServer', async ( catAdd: CategoryAdd) => {
   try {
-    const res: AxiosResponse<Category | Error, any> = await axiosInstance.post('categories', category);
-    if (!(res.data instanceof Error)) return res.data;
+    const res: AxiosResponse<Category, any> = await axiosInstance.post('categories', catAdd);
+    return res.data;
   } catch (e) {
     const error = e as AxiosError;
     addNotification(`ERROR ${error.code}`, `${error.message}`, 'danger');
@@ -30,7 +30,7 @@ export const addCategoryToServer = createAsyncThunk('createCategoryToServer', as
 export const updateCategory = createAsyncThunk('updateCategory', async ({ id, update }: UpdatedCategory) => {
   try {
     const res: any = await axiosInstance.put(`categories/${id}`, update);
-    if (!(res.data instanceof Error)) return res.data;
+    return res.data;
   } catch (e) {
     const error = e as AxiosError;
     addNotification(`ERROR ${error.code}`, `${error.message}`, 'danger');

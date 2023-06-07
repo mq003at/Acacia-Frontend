@@ -1,4 +1,4 @@
-import { Card, Box, Typography, Grid, Button, TextField } from '@mui/material';
+import { Card, Box, Typography, Grid, Button, TextField, Link } from '@mui/material';
 import { Product } from '../../types/common';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Slider from 'react-slick';
@@ -8,10 +8,12 @@ import 'slick-carousel/slick/slick-theme.css';
 import { useState } from 'react';
 import { useAppDispatch } from '../../hooks/reduxHook';
 import { addItemToCart } from '../../redux/reducers/cartReducer';
+import { useNavigate } from 'react-router-dom';
 
-const ProductFullDetails: React.FC<{ catName: string; product: Product;}> = (props) => {
+const ProductFullDetails: React.FC<{ catName: string; product: Product; }> = (props) => {
   const { product } = props;
   const [quantity, setQuantity] = useState(1);
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const handleIncrease = () => {
@@ -33,16 +35,22 @@ const ProductFullDetails: React.FC<{ catName: string; product: Product;}> = (pro
   };
 
   function handleButton() {
-    if (product && quantity) dispatch(addItemToCart({productId: product.id, quantity: quantity}));
-    else console.log("fail")
+    if (product && quantity) dispatch(addItemToCart({ productId: product.id, quantity: quantity }));
   }
 
   return (
     <Card className="product-f-details wrapper">
       <Box className="product-f-details show-cat" textAlign={'left'}>
-        <Typography marginLeft={'1.25em'} padding={'0.5em 0.5em'} color="text.secondary">
+        <Link
+          component="button"
+          variant="body2"
+          marginLeft={'1.25em'}
+          padding={'0.5em 0.5em'}
+          color="text.secondary"
+          onClick={() => navigate(`/products?category=${product.category.name}`)}
+        >
           {'>'} {product.category.name}
-        </Typography>
+        </Link>
       </Box>
 
       <Grid container>
@@ -58,7 +66,7 @@ const ProductFullDetails: React.FC<{ catName: string; product: Product;}> = (pro
           </Box>
         </Grid>
 
-        <Grid item xs={8}>
+        <Grid item xs={8} className="product-f-details mainInfo-wrapper">
           <Box className="product-f-details mainInfo" textAlign={'left'}>
             <Typography className="product-f-details title">{product.title}</Typography>
             <Typography className="product-f-details price">{product.price} EUR</Typography>

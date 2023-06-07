@@ -24,19 +24,24 @@ export const addRememberToken = (token: string, exp: string): void => {
 // Sign up a user + testing params. Should work like props
 export const addUser = createAsyncThunk('addUser', async (params: { user: User; purpose?: string; isRememberMe: boolean }, thunkAPI) => {
   try {
-    const res: AxiosResponse<AccountCredentialResponse | Error, any> = await axiosInstance.post('users/signup', {
+    const requestUser = {
       firstName: params.user.firstName,
       lastName: params.user.lastName,
       email: params.user.email,
       password: params.user.password,
       role: 'User',
       avatar: params.user.avatar,
-    });
+    }
+    console.log("req", requestUser);
+    const res: AxiosResponse<AccountCredentialResponse | Error, any> = await axiosInstance.post('users/signup', requestUser);
+    
     if (!(res.data instanceof Error)) {
       addNotification('Registration success', 'You are now logged in', 'success');
       if (params.isRememberMe && res.data.specialToken) addRememberToken(res.data.specialToken?.token, res.data.specialToken?.expiration);
       return res.data;
     }
+
+    if (res.status === 400) addNotification('Registration Failure', res.data.message, 'danger');
   } catch (e) {
     const error = e as AxiosError;
     addNotification(`ERROR ${error.code}`, `${error.message}`, 'danger');

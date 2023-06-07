@@ -14,7 +14,7 @@ export const fetchAllProducts = createAsyncThunk('fetchAllProducts', async () =>
     // const fetchRes = await fetch("/assets/products.json"); //Backup when fakeapi's data changes
     // const res = await fetchRes.json();
     // return { data: res.data, status: res.request.status };
-    if (!(res.data instanceof Error)) return { data: res.data, status: 200 };
+    return { data: res.data, status: 200 };
   } catch (e: any) {
     throw new Error(e.message);
   }
@@ -22,7 +22,7 @@ export const fetchAllProducts = createAsyncThunk('fetchAllProducts', async () =>
 
 export const addProductToServer = createAsyncThunk('addProductToServer', async (product: ProductAdd) => {
   try {
-    const res: AxiosResponse<Product | Error, any> = await axiosInstance.post('products', product);
+    const res: AxiosResponse<Product, any> = await axiosInstance.post('products', product);
     if (!(res.data instanceof Error)) {
       addNotification('Product added', `${product.title} has been added to the server`, 'success');
     }
@@ -35,8 +35,8 @@ export const addProductToServer = createAsyncThunk('addProductToServer', async (
 // Take in an updated Product, generate metadata and update it on the server
 export const modifyProduct = createAsyncThunk('modifyProduct', async ({ id, update }: UpdatedProduct) => {
   try {
-    const res: AxiosResponse<Product | Error, any> = await axiosInstance.put(`/products/${id}`, update);
-    if (!(res.data instanceof Error) && res.data !== undefined) return res.data;
+    const res: AxiosResponse<Product, any> = await axiosInstance.put(`/products/${id}`, update);
+    return res.data;
   } catch (e) {
     const error = e as AxiosError;
     addNotification(`ERROR ${error.code}`, `${error.message}`, 'danger');
@@ -45,8 +45,8 @@ export const modifyProduct = createAsyncThunk('modifyProduct', async ({ id, upda
 
 export const deleteProduct = createAsyncThunk('deleteProduct', async (id: number) => {
   try {
-    const res: AxiosResponse<string | Error, any> = await axiosInstance.delete(`/products/${id}`);
-    if (!(res.data instanceof Error)) return { id: id, status: res.status, message: res.data };
+    const res: AxiosResponse<string , any> = await axiosInstance.delete(`/products/${id}`);
+    return { id: id, status: res.status, message: res.data };
   } catch (e) {
     const error = e as AxiosError;
     addNotification(`ERROR ${error.code}`, `${error.message}`, 'danger');
@@ -58,14 +58,14 @@ export const addProductAndImage = createAsyncThunk('addProductAndImage', async (
   try {
     const images: string[] = [];
     for (const img of imageArray) {
-      const response: AxiosResponse<ResponseImage | Error, any> = await axiosInstance.post('/files/upload', img);
+      const response: AxiosResponse<ResponseImage, any> = await axiosInstance.post('/files/upload', img);
       if (!(response.data instanceof Error) && response.data.location) images.push(response.data.location);
     }
 
     // Does it need to be 3?
     if (images.length <= 0) {
     } else {
-      const res2: AxiosResponse<Product | Error, any> = await axiosInstance.post('products', {
+      const res2: AxiosResponse<Product, any> = await axiosInstance.post('products', {
         ...product,
         images: images,
       });

@@ -17,12 +17,17 @@ export interface Product extends Common {
     category: Category
 }
 
-export interface ProductAdd extends Common {
+export interface ProductAdd  {
     title: string,
     price: number,
     description: string
     images: string[]
     categoryId: number
+}
+
+export interface CategoryAdd {
+    name: string,
+    images: string[]
 }
 
 export interface Cart extends Common {
