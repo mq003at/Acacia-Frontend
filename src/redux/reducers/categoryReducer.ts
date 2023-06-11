@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AxiosError, AxiosResponse } from 'axios';
-import { addNotification } from '../../components/Functions/common';
+import { addNotification } from '../../components/functions/common';
 import axiosInstance from '../../test/shared/sharedInstance';
 import { AddCategoryWithImageParams, Category, CategoryAdd, ResponseImage, UpdatedCategory } from '../../types/common';
 

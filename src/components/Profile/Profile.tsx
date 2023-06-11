@@ -1,6 +1,6 @@
 import { Box, CardContent, Grid } from '@mui/material';
 import UserDetails from './UserDetails';
-import Cart from '../Cart/Cart';
+import Cart from '../cart/Cart';
 
 const Profile: React.FC = () => {
   return (

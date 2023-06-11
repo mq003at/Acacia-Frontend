@@ -1,7 +1,7 @@
 import { Box, Button, Card, CardContent, CardMedia, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { ProductPlacementProps } from '../../types/props';
-import SaleIcon from '../Basic/SaleIcon';
+import SaleIcon from '../basic/SaleIcon';
 import { useState } from 'react';
 import { Flipper, Flipped } from 'react-flip-toolkit';
 

@@ -1,6 +1,6 @@
 import { Box } from '@mui/material';
 import { Product } from '../../types/common';
-import ProductPlacement from '../Products/ProductBox';
+import ProductPlacement from '../products/ProductBox';
 
 const SpecialOffers: React.FC<{ offers: Product[] }> = (props) => {
   const { offers } = props;

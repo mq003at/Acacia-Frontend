@@ -1,20 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AxiosError, AxiosResponse } from 'axios';
-import { addNotification } from '../../components/Functions/common';
+import { addNotification } from '../../components/functions/common';
 import axiosInstance from '../../test/shared/sharedInstance';
 import { AccountCredential, AccountCredentialResponse, User, UserReducer } from '../../types/user';
-
-
-// Fetch all users from API (scappred. Will be replaced by fetchAllUsersName)
-// export const fetchAllUsers = createAsyncThunk('fetchAllUsers', async () => {
-//   try {
-//     const res: AxiosResponse<User[] | Error, any> = await axiosInstance.get('users');
-//     if (!(res.data instanceof Error)) return res.data;
-//   } catch (e) {
-//     const error = e as AxiosError;
-//     addNotification(`ERROR ${error.code}`, `${error.message}`, 'danger');
-//   }
-// });
 
 export const addRememberToken = (token: string, exp: string): void => {
   localStorage.setItem('rememberMeToken', token);

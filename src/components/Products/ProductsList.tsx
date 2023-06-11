@@ -4,7 +4,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/reduxHook';
 import { Product, Category } from '../../types/common';
 import ProductBox from './ProductBox';
-import { addNotification } from '../Functions/common';
+import { addNotification } from '../functions/common';
 import AddProductModal from './AddProductModal';
 
 const ProductsList: React.FC = () => {

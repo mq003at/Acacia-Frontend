@@ -3,7 +3,7 @@ import { AddProductWithImageParams, Product, ProductAdd, ResponseImage } from '.
 import { AxiosError, AxiosResponse } from 'axios';
 import { UpdatedProduct } from '../../types/common';
 import axiosInstance from '../../test/shared/sharedInstance';
-import { addNotification } from '../../components/Functions/common';
+import { addNotification } from '../../components/functions/common';
 // Backup when FAkeAPI changes
 // import product from '../../assets/products.json';
 

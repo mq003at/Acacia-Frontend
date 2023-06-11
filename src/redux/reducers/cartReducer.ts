@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { addNotification } from '../../components/Functions/common';
+import { addNotification } from '../../components/functions/common';
 import { Cart, CartReducer, CartRequest } from '../../types/common';
 import axiosInstance from '../../test/shared/sharedInstance';
 import axios, { AxiosError, AxiosResponse } from 'axios';

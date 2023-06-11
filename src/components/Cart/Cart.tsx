@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
 import { useAppSelector } from '../../hooks/reduxHook';
 import { useNavigate } from 'react-router-dom';
-import CartItemDetails from '../Products/CartItemDetails';
+import CartItemDetails from '../products/CartItemDetails';
 
 const Cart: React.FC = () => {
   const cart = useAppSelector((store) => store.cartReducer);

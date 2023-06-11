@@ -5,14 +5,14 @@ import { fetchAllCategories } from './redux/reducers/categoryReducer';
 import { fetchAllProducts } from './redux/reducers/productReducer';
 import { ReactNotifications } from 'react-notifications-component';
 
-import Error from './components/Basic/Error';
-import Cart from './components/Cart/Cart';
-import FrontPage from './components/FrontPage/FrontPage';
-import Header from './components/Header/Header';
-import ProductDetail from './components/Products/ProductDetails';
-import ProductsList from './components/Products/ProductsList';
-import LogUser from './components/Profile/LogUser';
-import Profile from './components/Profile/Profile';
+import Error from './components/basic/Error';
+import Cart from './components/cart/Cart';
+import FrontPage from './components/frontPage/FrontPage';
+import Header from './components/header/Header';
+import ProductDetail from './components/products/ProductDetails';
+import ProductsList from './components/products/ProductsList';
+import LogUser from './components/profile/LogUser';
+import Profile from './components/profile/Profile';
 
 import './styles/css/index.css';
 import 'react-notifications-component/dist/theme.css';
