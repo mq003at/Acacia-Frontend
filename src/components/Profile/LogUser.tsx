@@ -49,7 +49,7 @@ const LogUser: React.FC = (props) => {
               lastName: 'User',
               email: values.email,
               password: values.password,
-              role: 'customer',
+              role: 'User',
               id: 0,
               avatar: 'https://i.pravatar.cc/300',
             },

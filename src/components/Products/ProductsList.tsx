@@ -11,6 +11,7 @@ const ProductsList: React.FC = () => {
   const [isAsc, revertSort] = useState(true);
   const categoryList = useAppSelector((state) => state.categoryReducer);
   const products = useAppSelector((state) => state.productReducer);
+  const userRole = useAppSelector((state) => state.userReducer.currentUser?.role);
   const navigate = useNavigate();
 
   const [urlQueries] = useSearchParams();
@@ -134,13 +135,15 @@ const ProductsList: React.FC = () => {
               </Box>
             </Box>
 
-            <Box sx={{ textAlign: 'left' }}>
-              <Typography variant="h6" component="div">
-                Admin Commands
-              </Typography>
-              <AddProductModal catList={categoryList} />
+            {userRole === 'Admin' && (
+              <Box sx={{ textAlign: 'left' }}>
+                <Typography variant="h6" component="div">
+                  Admin Commands
+                </Typography>
+                <AddProductModal catList={categoryList} />
+              </Box>
+            )}
 
-            </Box>
           </Grid>
 
           <Grid item xs={9}>
