@@ -41,17 +41,18 @@ const ProductsList: React.FC = () => {
 
     if (tempArr.length > 0) {
       if (searchQuery) tempArr = tempArr.filter((product: Product) => product.title.toLowerCase().includes(searchQuery.toLowerCase()));
-      if (isAsc) {
-        tempArr = tempArr.sort((a, b) => (a.price > b.price ? 1 : -1));
-      } else {
+      tempArr = tempArr.sort((a, b) => (a.price > b.price ? 1 : -1));
+      setMinMaxPrice([tempArr[0].price, tempArr[tempArr.length - 1].price]);
+      if (!isAsc) {
         tempArr = tempArr.sort((a, b) => (a.price > b.price ? -1 : 1));
       }
-      setMinMaxPrice([tempArr[0].price, tempArr[tempArr.length - 1].price]);
     }
 
-    tempArr.filter((product: Product) => product.price >= priceRange[0] && product.price <= priceRange[1]);
+    tempArr = tempArr.filter((product: Product) => product.price >= priceRange[0] && product.price <= priceRange[1]);
+
     setCurrentProducts(tempArr.map((x: any) => x));
   }, [categoryList, navigate, products, isAsc, categoryQuery, searchQuery, chosenCat, priceRange]);
+
 
   useEffect(() => {
     if (currentProducts.length > 0) setViewProducts(currentProducts.slice(currentPage * 12 - 12, currentPage * 12));
@@ -92,7 +93,7 @@ const ProductsList: React.FC = () => {
                 </Typography>
                 {minMaxPrice.length > 0 && (
                   <Slider
-                    getAriaLabel={() => 'Temperature range'}
+                    getAriaLabel={() => 'Price range'}
                     value={priceRange}
                     onChange={handleChange}
                     valueLabelDisplay="auto"
@@ -133,11 +134,11 @@ const ProductsList: React.FC = () => {
               </Box>
             </Box>
 
-            <Box sx={{ textAlign: 'left'}}>
+            <Box sx={{ textAlign: 'left' }}>
               <Typography variant="h6" component="div">
                 Admin Commands
               </Typography>
-              <AddProductModal catList={categoryList}/>
+              <AddProductModal catList={categoryList} />
 
             </Box>
           </Grid>
