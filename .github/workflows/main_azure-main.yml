@@ -16,7 +16,7 @@ jobs:
       - name: Azure App Service Deploy
         uses: azure/webapps-deploy@v2
         with:
-          app-name: <your-app-name>
+          app-name: acacia-main
           slot-name: production
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_C5D939DE3A934165A318B4D1179039A5 }}
           package: ./build
