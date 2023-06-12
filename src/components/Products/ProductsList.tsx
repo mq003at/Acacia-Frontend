@@ -6,6 +6,7 @@ import { Product, Category } from '../../types/common';
 import ProductBox from './ProductBox';
 import { addNotification } from '../functions/common';
 import AddProductModal from './AddProductModal';
+import UpdateCategoryModal from './UpdateCategoryModal';
 
 const ProductsList: React.FC = () => {
   const [isAsc, revertSort] = useState(true);
@@ -50,13 +51,15 @@ const ProductsList: React.FC = () => {
     }
 
     tempArr = tempArr.filter((product: Product) => product.price >= priceRange[0] && product.price <= priceRange[1]);
-
+    console.log("tempArr", tempArr)
     setCurrentProducts(tempArr.map((x: any) => x));
   }, [categoryList, navigate, products, isAsc, categoryQuery, searchQuery, chosenCat, priceRange]);
 
+  useEffect(() => console.log("current", currentProducts), [currentProducts])
 
   useEffect(() => {
     if (currentProducts.length > 0) setViewProducts(currentProducts.slice(currentPage * 12 - 12, currentPage * 12));
+    else setViewProducts([])
   }, [currentPage, currentProducts]);
 
   const handleChange = (event: Event, newValue: number | number[]) => {
@@ -126,8 +129,9 @@ const ProductsList: React.FC = () => {
                   </ListItemButton>
                   {categoryList.map((category, index) => (
                     <ListItem key={`list-${category.id}`} disablePadding>
-                      <ListItemButton selected={chosenCat?.id === index + 1 ? true : false} onClick={() => navigate(`/products?category=${category.name}`)}>
-                        <ListItemText primary={category.name} />
+                      <ListItemButton selected={chosenCat?.id === index + 1 ? true : false}>
+                        <ListItemText primary={category.name} onClick={() => navigate(`/products?category=${category.name}`)}/>
+                        {userRole === 'Admin' && <UpdateCategoryModal category={category}/>}
                       </ListItemButton>
                     </ListItem>
                   ))}
@@ -154,9 +158,13 @@ const ProductsList: React.FC = () => {
             </Box>
 
             <Box sx={{ display: 'flex', flexWrap: 'wrap', p: 1, m: 1, bgcolor: 'background.paper', borderRadius: 1 }}>
-              {viewProducts.map((product) => (
-                <ProductBox key={`productLis-${product.id}`} size={50} product={product} isOnSale={false} isHideDescription={true} />
-              ))}
+              {viewProducts.length > 0 ?
+
+                viewProducts.map((product) => (
+                  <ProductBox key={`productLis-${product.id}`} size={50} product={product} isOnSale={false} isHideDescription={true} />
+                ))
+
+                : <Typography>There is no product in this category that match your criteria.</Typography>}
             </Box>
             <Pagination count={Math.ceil(currentProducts.length / 12)} page={currentPage} variant="outlined" onChange={handlePageChange} shape="rounded" size="large" />
           </Grid>

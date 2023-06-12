@@ -16,20 +16,27 @@ export const fetchAllCategories = createAsyncThunk('fetchAllCategory', async () 
 });
 
 // Post in a category
-export const addCategoryToServer = createAsyncThunk('createCategoryToServer', async ( catAdd: CategoryAdd) => {
+export const addCategoryToServer = createAsyncThunk('createCategoryToServer', async ({ catAdd, token }: { catAdd: CategoryAdd; token: string }) => {
   try {
-    const res: AxiosResponse<Category, any> = await axiosInstance.post('categories', catAdd);
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    const res: AxiosResponse<Category, any> = await axiosInstance.post('categories', { name: catAdd.name, images: [catAdd.images[0]] }, { headers });
     return res.data;
   } catch (e) {
     const error = e as AxiosError;
+    console.log('e', error);
     addNotification(`ERROR ${error.code}`, `${error.message}`, 'danger');
   }
 });
 
 // Update category
-export const updateCategory = createAsyncThunk('updateCategory', async ({ id, update }: UpdatedCategory) => {
+export const updateCategory = createAsyncThunk('updateCategory', async ({ id, update, userToken }: UpdatedCategory) => {
   try {
-    const res: any = await axiosInstance.put(`categories/${id}`, update);
+    const headers = {
+      Authorization: `Bearer ${userToken}`,
+    };
+    const res: any = await axiosInstance.put(`categories/${id}`, { name: update.name, images: update.images }, { headers });
     return res.data;
   } catch (e) {
     const error = e as AxiosError;
@@ -37,21 +44,23 @@ export const updateCategory = createAsyncThunk('updateCategory', async ({ id, up
   }
 });
 
-// Post Category but with image
-export const addCatAndImage = createAsyncThunk('addProductAndImage', async ({ image, category }: AddCategoryWithImageParams) => {
+// Delete Category
+export const deleteCategory = createAsyncThunk('deleteCategory', async ({ id, userToken }: { id: number; userToken: string }) => {
   try {
-    let images: string = '';
-    const response: AxiosResponse<ResponseImage | Error, any> = await axiosInstance.post('/files/upload', image);
-    if (!(response.data instanceof Error) && response.data.location) images = response.data.location;
-
-    const res2: AxiosResponse<Category | Error, any> = await axiosInstance.post('products', {
-      ...category,
-      images: images,
-    });
-    return res2.data;
+    const headers = {
+      Authorization: `Bearer ${userToken}`,
+    };
+    console.log("be4", id, userToken);
+    const res: AxiosResponse<{ message: string }, any> = await axiosInstance.delete(`categories/${id}`, { headers });
+    console.log('res', res);
+    if (res.data.message) {
+      const res2: AxiosResponse<Category[], any> = await axiosInstance.get('categories');
+      console.log('res2', res2);
+      return res2.data;
+    }
   } catch (e) {
-    const error = e as Error;
-    return error;
+    const error = e as AxiosError;
+    addNotification(`ERROR ${error.code}`, `${error.message}`, 'danger');
   }
 });
 
@@ -79,9 +88,9 @@ const categorySlice = createSlice({
         } else return state;
       })
 
-      .addCase(addCatAndImage.fulfilled, (state, action) => {
-        if (action.payload instanceof Error || action.payload === undefined) return state;
-        else return [...state, action.payload];
+      .addCase(deleteCategory.fulfilled, (state, action) => {
+        if (action.payload instanceof AxiosError || !action.payload === undefined) return state;
+        else return action.payload;
       });
   },
 });

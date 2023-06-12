@@ -20,9 +20,13 @@ export const fetchAllProducts = createAsyncThunk('fetchAllProducts', async () =>
   }
 });
 
-export const addProductToServer = createAsyncThunk('addProductToServer', async (product: ProductAdd) => {
+export const addProductToServer = createAsyncThunk('addProductToServer', async ({product, userToken} : {product: ProductAdd, userToken: string}) => {
   try {
-    const res: AxiosResponse<Product, any> = await axiosInstance.post('products', product);
+    const headers = {
+      Authorization: `Bearer ${userToken}`,
+    };
+    const res: AxiosResponse<Product, any> = await axiosInstance.post('products', {...product}, {headers});
+    console.log(res, "res");
     if (!(res.data instanceof Error)) {
       addNotification('Product added', `${product.title} has been added to the server`, 'success');
     }
@@ -95,23 +99,14 @@ const productSlice = createSlice({
 
     // Sort global product based on category
     sortAllByCategory: (state, action: PayloadAction<'asc' | 'des'>) => {
-      if (action.payload === 'asc') {
-        state.sort((a, b) => {
-          if (a.category.name.toLowerCase() > b.category.name.toLowerCase()) return 1;
-          if (a.category.name.toLowerCase() < b.category.name.toLowerCase()) return -1;
-          if (a.title.toLowerCase() > b.title.toLowerCase()) return 1;
-          if (a.title.toLowerCase() < b.title.toLowerCase()) return -1;
-          return 1;
-        });
-      } else {
-        state.sort((a, b) => {
-          if (a.category.name.toLowerCase() < b.category.name.toLowerCase()) return 1;
-          if (a.category.name.toLowerCase() > b.category.name.toLowerCase()) return -1;
-          if (a.title.toLowerCase() < b.title.toLowerCase()) return 1;
-          if (a.title.toLowerCase() > b.title.toLowerCase()) return -1;
-          return 1;
-        });
-      }
+      const compareFunction = (a: Product, b: Product) => {
+        const categoryComparison = a.category.name.localeCompare(b.category.name, 'en', { sensitivity: 'base' });
+        if (categoryComparison !== 0) {
+          return action.payload === 'asc' ? categoryComparison : -categoryComparison;
+        }
+        return action.payload === 'asc' ? a.title.localeCompare(b.title, 'en', { sensitivity: 'base' }) : -a.title.localeCompare(b.title, 'en', { sensitivity: 'base' });
+      };
+      state.sort(compareFunction);
     },
 
     // Sort global product based on price

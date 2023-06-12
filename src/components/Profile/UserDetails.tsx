@@ -18,43 +18,45 @@ const UserDetails: React.FC = () => {
     if (!currentUser) navigate('/login');
   }, [currentUser, navigate]);
 
-  const profileForm = useFormik({
-    initialValues: {
-      email: currentUser?.email,
-      password: currentUser?.password,
-      firstName: currentUser?.firstName,
-      lastName: currentUser?.lastName,
-    },
-    onSubmit: (values) => {
-      if (currentUser && values.firstName && values.lastName && values.email && values.password) {
-        dispatch(
-          updateUser({
-            id: currentUser.id,
-            firstName: values.firstName,
-            lastName: values.lastName,
-            email: values.email,
-            password: values.password,
-            role: currentUser.role,
-            avatar: currentUser.avatar,
-          })
-        );
-      }
-    },
-    validationSchema: profileSchema,
-  });
+
 
   const UpdateUser: React.FC = () => {
+    const profileForm = useFormik({
+      initialValues: {
+        email: currentUser?.email,
+        password: currentUser?.password,
+        firstName: currentUser?.firstName,
+        lastName: currentUser?.lastName,
+      },
+      onSubmit: (values) => {
+        if (currentUser && values.firstName && values.lastName && values.email && values.password) {
+          dispatch(
+            updateUser({
+              id: currentUser.id,
+              firstName: values.firstName,
+              lastName: values.lastName,
+              email: values.email,
+              password: values.password,
+              role: currentUser.role,
+              avatar: currentUser.avatar,
+            })
+          );
+        }
+      },
+      validationSchema: profileSchema,
+    });
     return (
       <CardContent>
         <form className="profile__profileForm" onSubmit={profileForm.handleSubmit}>
           <CardMedia
             component="img"
-            sx={{ width: 150 }}
+            sx={{ width: 150, margin: '10px' }}
             image={currentUser?.avatar ? currentUser.avatar : `https://ui-avatars.com/api/?name=${currentUser?.firstName} ${currentUser?.lastName}&size=450`}
             alt={currentUser?.firstName}
           ></CardMedia>
           <TextField
             className="profile__textField"
+            sx={{ margin: '10px' }}
             id="firstName"
             label="First Name"
             {...profileForm.getFieldProps('firstName')}
@@ -63,6 +65,7 @@ const UserDetails: React.FC = () => {
           />
           <TextField
             className="profile__textField"
+            sx={{ margin: '10px' }}
             id="lastName"
             label="LastName"
             {...profileForm.getFieldProps('lastName')}
@@ -71,6 +74,7 @@ const UserDetails: React.FC = () => {
           />
           <TextField
             id="email"
+            sx={{ margin: '10px' }}
             label="Email"
             className="profile__textField"
             {...profileForm.getFieldProps('email')}
@@ -79,10 +83,16 @@ const UserDetails: React.FC = () => {
           />
           <TextField
             id="password"
+            sx={{ margin: '10px' }}
             label="Password"
             type="password"
             className="profile__textField"
-            {...profileForm.getFieldProps('password')}
+            value={profileForm.values.password}
+            onBlur={profileForm.handleBlur}
+            onChange={(event) => {
+              event.persist(); // Persist the event to prevent synthetic event reuse
+              profileForm.handleChange(event); // Update the form field value
+            }}
             helperText={profileForm.errors.password ? profileForm.errors.password : ''}
             error={profileForm.touched.password && profileForm.errors.password !== undefined}
           />

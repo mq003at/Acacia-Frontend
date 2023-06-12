@@ -482,5 +482,17 @@ button.decorated {
 button.decorated:hover {
   background-color: #708411;
 }
+button.danger-decorated {
+  color: #ffffff;
+  background-color: #ed0303;
+  min-width: 100px;
+}
+button.danger-decorated:hover {
+  background-color: #800003;
+}
+
+.special-icon:hover {
+  color: #8ea616;
+}
 
 /*# sourceMappingURL=index.css.map */

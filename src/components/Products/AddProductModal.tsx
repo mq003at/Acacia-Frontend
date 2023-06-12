@@ -2,13 +2,15 @@ import { Box, Button, ListItem, ListItemButton, ListItemText, MenuItem, Modal, T
 import { useFormik } from 'formik';
 import { useState } from 'react';
 import * as Yup from 'yup';
-import { useAppDispatch } from '../../hooks/reduxHook';
-import { Category, CategoryAdd } from '../../types/common';
+import { useAppDispatch, useAppSelector } from '../../hooks/reduxHook';
+import { Category, CategoryAdd, ProductAdd } from '../../types/common';
 import { addCategoryToServer } from '../../redux/reducers/categoryReducer';
+import { addProductToServer } from '../../redux/reducers/productReducer';
 
 const AddProductModal: React.FC<{ catList: Category[] }> = (props) => {
     const dispatch = useAppDispatch();
     const catList = props.catList;
+    const userToken = useAppSelector((state) => state.userReducer.accessToken?.token)
 
     const [openCat, setCat] = useState(false);
     const [openProd, setProd] = useState(false);
@@ -25,7 +27,6 @@ const AddProductModal: React.FC<{ catList: Category[] }> = (props) => {
             .required('Price is required')
             .positive('Price must be a positive number'),
         description: Yup.string().required('Description is required'),
-        images: Yup.string().url('Image must be a valid URL').required('Image is required')
     });
 
 
@@ -35,12 +36,12 @@ const AddProductModal: React.FC<{ catList: Category[] }> = (props) => {
             images: '',
         },
         onSubmit: (values) => {
-            if (values.name && values.images) {
+            if (values.name && values.images && typeof userToken === 'string') {
                 const catAdd: CategoryAdd = {
                     name: values.name,
                     images: [values.images]
                 }
-                dispatch(addCategoryToServer(catAdd));
+                dispatch(addCategoryToServer({catAdd: catAdd, token: userToken}));
             }
         },
         validationSchema: validationCat
@@ -57,10 +58,15 @@ const AddProductModal: React.FC<{ catList: Category[] }> = (props) => {
             price: 1
         },
         onSubmit: (values) => {
-            if (values.name && values.image1 && values.image2 && values.image3 && values.description && values.price && values.catId) {
-                // const prodAdd: ProductAdd = {
-
-                // }
+            if (values.name && values.image1 && values.image2 && values.image3 && values.description && values.price && values.catId && typeof userToken === 'string') {
+                const prodAdd: ProductAdd = {
+                    title: values.name,
+                    images: [values.image1, values.image2, values.image3],
+                    price: values.price,
+                    categoryId: values.catId,
+                    description: values.description
+                }
+                dispatch(addProductToServer({product: prodAdd, userToken: userToken}))
             }
         },
         validationSchema: productSchema
@@ -110,8 +116,8 @@ const AddProductModal: React.FC<{ catList: Category[] }> = (props) => {
                             error={productForm.touched.description && productForm.errors.description !== undefined}
                             InputLabelProps={{ shrink: true }} />
                         <Select
-                            labelId="category-label"
-                            id="category-select"
+                            label="catId"
+                            id="catId"
                             value={productForm.values.catId}
                             onChange={(e) => productForm.setFieldValue('catId', e.target.value)}
                             className="cat-input"
@@ -122,18 +128,15 @@ const AddProductModal: React.FC<{ catList: Category[] }> = (props) => {
                                 </MenuItem>
                             ))}
                         </Select>
-                        <TextField className="images-input" id="image1" label="image1" {...categoryForm.getFieldProps('image1')} helperText={categoryForm.errors.images ? categoryForm.errors.images : ''}
-                            error={categoryForm.touched.images && categoryForm.errors.images !== undefined}
+                        <TextField className="images-input" id="image1" label="image1" {...productForm.getFieldProps('image1')} 
                             InputLabelProps={{ shrink: true }} />
-                        <TextField className="images-input" id="image2" label="image2" {...categoryForm.getFieldProps('image2')} helperText={categoryForm.errors.images ? categoryForm.errors.images : ''}
-                            error={categoryForm.touched.images && categoryForm.errors.images !== undefined}
+                        <TextField className="images-input" id="image2" label="image2" {...productForm.getFieldProps('image2')} 
                             InputLabelProps={{ shrink: true }} />
-                        <TextField className="images-input" id="image3" label="image3" {...categoryForm.getFieldProps('image3')} helperText={categoryForm.errors.images ? categoryForm.errors.images : ''}
-                            error={categoryForm.touched.images && categoryForm.errors.images !== undefined}
+                        <TextField className="images-input" id="image3" label="image3" {...productForm.getFieldProps('image3')} 
                             InputLabelProps={{ shrink: true }} />
 
                         <Box className="inline-button">
-                            <Button className="decorated modal-button" type="submit">
+                            <Button className="decorated modal-button" type="submit" onClick={() => console.log('clicked')}>
                                 Submit
                             </Button>
                             <Button className="decorated modal-button" onClick={() => setProd(false)}>Cancel</Button>

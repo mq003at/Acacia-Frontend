@@ -561,4 +561,20 @@ button {
       background-color: #708411;
     }
   }
+
+  &.danger-decorated {
+    color: #ffffff;
+    background-color: #ed0303;
+    min-width: 100px;
+
+    &:hover {
+      background-color: #800003;
+    }
+  }
+
+}
+.special-icon {
+  &:hover {
+    color: #8ea616;
+  }
 }

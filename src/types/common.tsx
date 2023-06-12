@@ -6,7 +6,7 @@ export interface Common {
 
 export interface Category extends Common {
     name: string,
-    image: string
+    images: string[]
 }
 
 export interface Product extends Common {
@@ -73,7 +73,8 @@ export interface UpdatedProduct {
 
 export interface UpdatedCategory {
     id: number,
-    update: Partial<Category>
+    update: Category,
+    userToken: string
 }
 
 export interface AddProductWithImageParams {
