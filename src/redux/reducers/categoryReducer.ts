@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AxiosError, AxiosResponse } from 'axios';
 import { addNotification } from '../../components/functions/common';
 import axiosInstance from '../../test/shared/sharedInstance';
-import { AddCategoryWithImageParams, Category, CategoryAdd, ResponseImage, UpdatedCategory } from '../../types/common';
+import { Category, CategoryAdd, UpdatedCategory } from '../../types/common';
 
 // Fetch all categories
 export const fetchAllCategories = createAsyncThunk('fetchAllCategory', async () => {

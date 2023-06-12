@@ -1,11 +1,11 @@
-import { Box, Button, ListItem, ListItemButton, ListItemText, MenuItem, Modal, TextField, Typography, Select } from '@mui/material';
+import { Box, Button, Modal, TextField, Typography } from '@mui/material';
 import { useFormik } from 'formik';
 import { Fragment, useState } from 'react';
 import React from 'react';
 import * as Yup from 'yup';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHook';
-import { Category, CategoryAdd } from '../../types/common';
-import { addCategoryToServer, deleteCategory, updateCategory } from '../../redux/reducers/categoryReducer';
+import { Category } from '../../types/common';
+import { deleteCategory, updateCategory } from '../../redux/reducers/categoryReducer';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 
 

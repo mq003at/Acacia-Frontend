@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AddProductWithImageParams, Product, ProductAdd, ResponseImage } from '../../types/common';
 import { AxiosError, AxiosResponse } from 'axios';
-import { UpdatedProduct } from '../../types/common';
 import axiosInstance from '../../test/shared/sharedInstance';
 import { addNotification } from '../../components/functions/common';
 // Backup when FAkeAPI changes
