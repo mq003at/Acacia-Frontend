@@ -2,17 +2,19 @@ import { Card, Box, Typography, Grid, Button, TextField, Link } from '@mui/mater
 import { Product } from '../../types/common';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Slider from 'react-slick';
+import DeleteProductModal from './DeleteProductModal';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { useState } from 'react';
-import { useAppDispatch } from '../../hooks/reduxHook';
+import { useAppDispatch, useAppSelector } from '../../hooks/reduxHook';
 import { addItemToCart } from '../../redux/reducers/cartReducer';
 import { useNavigate } from 'react-router-dom';
 
 const ProductFullDetails: React.FC<{ catName: string; product: Product; }> = (props) => {
   const { product } = props;
   const [quantity, setQuantity] = useState(1);
+  const user = useAppSelector((state) => state.userReducer)
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -95,6 +97,7 @@ const ProductFullDetails: React.FC<{ catName: string; product: Product; }> = (pr
               <ShoppingCartIcon />
               BUY NOW
             </Button>
+            {user.currentUser?.role === 'Admin' && user.accessToken?.token && <DeleteProductModal product={product} token={user.accessToken?.token} />}
           </Box>
         </Grid>
       </Grid>

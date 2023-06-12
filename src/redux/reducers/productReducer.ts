@@ -10,7 +10,7 @@ import { addNotification } from '../../components/functions/common';
 // Fetch all products from API; in case the fetch fails, use the backup one stored locally
 export const fetchAllProducts = createAsyncThunk('fetchAllProducts', async () => {
   try {
-    const res: AxiosResponse<Product[] | Error, any> = await axiosInstance.get('products');
+    const res: AxiosResponse<Product[], any> = await axiosInstance.get('products');
     // const fetchRes = await fetch("/assets/products.json"); //Backup when fakeapi's data changes
     // const res = await fetchRes.json();
     // return { data: res.data, status: res.request.status };
@@ -20,15 +20,18 @@ export const fetchAllProducts = createAsyncThunk('fetchAllProducts', async () =>
   }
 });
 
-export const addProductToServer = createAsyncThunk('addProductToServer', async ({product, userToken} : {product: ProductAdd, userToken: string}) => {
+export const addProductToServer = createAsyncThunk('addProductToServer', async ({ product, userToken }: { product: ProductAdd; userToken: string }) => {
   try {
     const headers = {
       Authorization: `Bearer ${userToken}`,
     };
-    const res: AxiosResponse<Product, any> = await axiosInstance.post('products', {...product}, {headers});
-    console.log(res, "res");
-    if (!(res.data instanceof Error)) {
-      addNotification('Product added', `${product.title} has been added to the server`, 'success');
+    const res: AxiosResponse<Product, any> = await axiosInstance.post('products', { ...product }, { headers });
+    if (res.status === 200) {
+      const res2: AxiosResponse<Product[], any> = await axiosInstance.get('products');
+      if (!(res2.data instanceof Error)) {
+        addNotification('Product added', `${product.title} has been added to the server`, 'success');
+        return res2.data;
+      }
     }
   } catch (e) {
     const error = e as AxiosError;
@@ -37,20 +40,38 @@ export const addProductToServer = createAsyncThunk('addProductToServer', async (
 });
 
 // Take in an updated Product, generate metadata and update it on the server
-export const modifyProduct = createAsyncThunk('modifyProduct', async ({ id, update }: UpdatedProduct) => {
+export const modifyProduct = createAsyncThunk('modifyProduct', async ({ id, product, userToken }: { id: number; product: Product; userToken: string }) => {
   try {
-    const res: AxiosResponse<Product, any> = await axiosInstance.put(`/products/${id}`, update);
-    return res.data;
+    const headers = {
+      Authorization: `Bearer ${userToken}`,
+    };
+    const res: AxiosResponse<Product, any> = await axiosInstance.put(`/products/${id}`, { ...product }, { headers });
+    if (res.status === 200) {
+      const res2: AxiosResponse<Product[], any> = await axiosInstance.get('products');
+      if (!(res2.data instanceof Error)) {
+        addNotification('Product deleted', `${product.title} has been deleted from the server`, 'success');
+        return res2.data;
+      }
+    }
   } catch (e) {
     const error = e as AxiosError;
     addNotification(`ERROR ${error.code}`, `${error.message}`, 'danger');
   }
 });
 
-export const deleteProduct = createAsyncThunk('deleteProduct', async (id: number) => {
+export const deleteProduct = createAsyncThunk('deleteProduct', async ({ id, userToken }: { id: number; userToken: string }) => {
   try {
-    const res: AxiosResponse<string , any> = await axiosInstance.delete(`/products/${id}`);
-    return { id: id, status: res.status, message: res.data };
+    const headers = {
+      Authorization: `Bearer ${userToken}`,
+    };
+    const res: AxiosResponse<string, any> = await axiosInstance.delete(`/products/${id}`, { headers });
+    if (res.status === 200) {
+      const res2: AxiosResponse<Product[], any> = await axiosInstance.get('products');
+      if (!(res2.data instanceof Error)) {
+        addNotification('Product deleted', `Product has been deleted from the server`, 'success');
+        return res2.data;
+      }
+    }
   } catch (e) {
     const error = e as AxiosError;
     addNotification(`ERROR ${error.code}`, `${error.message}`, 'danger');
@@ -132,18 +153,13 @@ const productSlice = createSlice({
       })
 
       .addCase(addProductToServer.fulfilled, (state, action) => {
-        return state;
+        if (!(action.payload instanceof Error) && action.payload !== undefined && action.payload) return action.payload;
+        else return state;
       })
 
       .addCase(deleteProduct.fulfilled, (state, action) => {
-        // We can use hasOwnProperty to check for the property
-        if (action.payload !== undefined && action.payload.hasOwnProperty('id') && action.payload.hasOwnProperty('status')) {
-          const { id, status } = action.payload;
-          if (status === 200) return state.filter((product: Product) => product.id !== id);
-          else return state;
-        } else {
-          return state;
-        }
+        if (!(action.payload instanceof Error) && action.payload !== undefined && action.payload) return action.payload;
+        else return state;
       })
 
       .addCase(addProductAndImage.fulfilled, (state, action) => {

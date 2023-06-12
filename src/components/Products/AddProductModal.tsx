@@ -67,6 +67,7 @@ const AddProductModal: React.FC<{ catList: Category[] }> = (props) => {
                     description: values.description
                 }
                 dispatch(addProductToServer({product: prodAdd, userToken: userToken}))
+                setProd(false);
             }
         },
         validationSchema: productSchema
@@ -136,7 +137,7 @@ const AddProductModal: React.FC<{ catList: Category[] }> = (props) => {
                             InputLabelProps={{ shrink: true }} />
 
                         <Box className="inline-button">
-                            <Button className="decorated modal-button" type="submit" onClick={() => console.log('clicked')}>
+                            <Button className="decorated modal-button" type="submit">
                                 Submit
                             </Button>
                             <Button className="decorated modal-button" onClick={() => setProd(false)}>Cancel</Button>

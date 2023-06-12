@@ -22,7 +22,7 @@ const ProductsList: React.FC = () => {
   const [currentProducts, setCurrentProducts] = useState<Product[]>([]);
   const [chosenCat, setChosenCat] = useState<Category | undefined>(undefined);
 
-  const [priceRange, setPriceRange] = useState<number[]>([10, 100000]);
+  const [priceRange, setPriceRange] = useState<number[]>([1, 100000]);
   const [minMaxPrice, setMinMaxPrice] = useState<number[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [viewProducts, setViewProducts] = useState<Product[]>([]);
