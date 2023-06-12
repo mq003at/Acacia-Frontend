@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.0add143e.css",
-    "main.js": "/static/js/main.6377b7e7.js",
+    "main.js": "/static/js/main.3bcbfb43.js",
     "static/js/787.cda612ba.chunk.js": "/static/js/787.cda612ba.chunk.js",
     "static/media/girl-in-yellow-1.jpg": "/static/media/girl-in-yellow-1.a19483ab0d171368bd37.jpg",
     "static/media/35-off-hi.png": "/static/media/35-off-hi.60665528982ecf732119.png",
@@ -13,11 +13,11 @@
     "static/media/slick.woff": "/static/media/slick.295183786cd8a1389865.woff",
     "index.html": "/index.html",
     "main.0add143e.css.map": "/static/css/main.0add143e.css.map",
-    "main.6377b7e7.js.map": "/static/js/main.6377b7e7.js.map",
+    "main.3bcbfb43.js.map": "/static/js/main.3bcbfb43.js.map",
     "787.cda612ba.chunk.js.map": "/static/js/787.cda612ba.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.0add143e.css",
-    "static/js/main.6377b7e7.js"
+    "static/js/main.3bcbfb43.js"
   ]
 }
