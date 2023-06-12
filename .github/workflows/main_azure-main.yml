@@ -1,4 +1,4 @@
-name: Deploy to Azure Web App
+name: Deploy to Azure App Service
 
 on:
   push:
@@ -13,12 +13,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Deploy to Azure Web App
+      - name: Azure App Service Deploy
         uses: azure/webapps-deploy@v2
-        id: deploy-to-webapp
         with:
-          app-name: 'azure-main'
-          slot-name: 'Production'
+          app-name: <your-app-name>
+          slot-name: production
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_C5D939DE3A934165A318B4D1179039A5 }}
-          images: 
-            ./build
+          package: ./build
+
+
+          
