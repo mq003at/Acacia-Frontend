@@ -6,6 +6,8 @@ import * as Yup from 'yup';
 import { addUser, authCredential } from '../../redux/reducers/userReducer';
 import { useNavigate } from 'react-router-dom';
 import { fetchUserCart } from '../../redux/reducers/cartReducer';
+import LogInImg from '../../assets/girl-in-yellow-1.jpg';
+
 
 const LogUser: React.FC = (props) => {
   const user = useAppSelector((state) => state.userReducer);
@@ -74,6 +76,7 @@ const LogUser: React.FC = (props) => {
 
   return (
     <Box className="logUser__wrapper">
+      <img src={LogInImg} alt="Login Girl"></img>
       <Box className="logUser__content">
         <Card>
           <CardContent className="logUser__card">

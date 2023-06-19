@@ -18,6 +18,7 @@ import './styles/css/index.css';
 import 'react-notifications-component/dist/theme.css';
 import { autoLogin } from './redux/reducers/userReducer';
 import { fetchUserCart } from './redux/reducers/cartReducer';
+import AboutUs from './components/aboutUs/AboutUs';
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -60,6 +61,7 @@ const App = () => {
           <Route path="/carts" element={<Cart />} />
           <Route path="/login" element={<LogUser />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/about" element={<AboutUs />} />
           <Route path="*" element={<Error />} />
         </Routes>
       </BrowserRouter>

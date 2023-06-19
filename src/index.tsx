@@ -14,6 +14,8 @@ root.render(
     <head>
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Pathway Extreme" />
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poltawski Nowy" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair Display" />
+
     </head>
     <Provider store={store}>
       <App />

@@ -288,20 +288,24 @@ Login User
 .logUser__wrapper {
   display: flex;
   align-items: center;
-  background-image: url("../../assets/girl-in-yellow-1.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
   width: 100%;
+  height: calc(100vh - 79px);
+  margin-top: 75px;
+}
+.logUser__wrapper img {
+  object-fit: cover;
+  width: 100%;
   height: 100%;
 }
 .logUser__content {
   display: flex;
   padding-left: 5%;
+  position: fixed;
 }
 .logUser__content .MuiCard-root {
   box-shadow: 0px 7px 46px 0px rgba(0, 0, 0, 0.75);
@@ -321,6 +325,46 @@ Login User
 }
 .logUser__specialBox {
   align-self: center;
+}
+
+.about {
+  display: flex;
+  height: calc(100vh - 79px);
+  margin-top: 75px;
+}
+.about .wrapper {
+  display: flex;
+  text-align: left;
+  margin: auto;
+  height: 70vh;
+  width: 70vw;
+  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0), 20px 20px 20px 0px rgba(233, 146, 146, 0.745), 0px 0px 0px 0px rgb(0, 0, 0) !important;
+}
+.about .wrapper .leftbox {
+  background-color: rgb(246, 242, 242);
+  width: 70%;
+  height: 85%;
+  margin-top: auto;
+}
+.about .wrapper .leftbox * {
+  background-color: transparent;
+  font-family: "Playfair Display", sans-serif;
+}
+.about .wrapper .leftbox .upper-row {
+  margin-left: 7%;
+  padding-top: 7%;
+  font-size: 2.4em;
+}
+.about .wrapper .leftbox .lower-row {
+  margin-left: 10%;
+  padding-top: 5%;
+  margin-right: 5%;
+  font-size: 1.25em;
+}
+.about img {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
 }
 
 .profile {

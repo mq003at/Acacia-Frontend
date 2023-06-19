@@ -55,7 +55,7 @@ const RightNav = () => {
           </MenuItem>
         ))}
       </Menu>
-      <Button className={''} variant="outlined">
+      <Button className={''} variant="outlined" onClick={() => {handleClose(); navigate("/about")}}>
         About Us
       </Button>
       <Button className={''} variant="outlined" onClick={() => {handleClose(); handleUser();}}>

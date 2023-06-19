@@ -1,9 +1,10 @@
 {
   "files": {
-    "main.css": "/static/css/main.0add143e.css",
-    "main.js": "/static/js/main.3bcbfb43.js",
+    "main.css": "/static/css/main.7d2b0de8.css",
+    "main.js": "/static/js/main.150900b0.js",
     "static/js/787.cda612ba.chunk.js": "/static/js/787.cda612ba.chunk.js",
     "static/media/girl-in-yellow-1.jpg": "/static/media/girl-in-yellow-1.a19483ab0d171368bd37.jpg",
+    "static/media/aboutus-woman.jpg": "/static/media/aboutus-woman.461e17e081475eba07ea.jpg",
     "static/media/35-off-hi.png": "/static/media/35-off-hi.60665528982ecf732119.png",
     "static/media/logo.png": "/static/media/logo.c7a13a2e978801dca61f.png",
     "static/media/happy_girl_shopping.jpeg": "/static/media/happy_girl_shopping.30c0d7df952d9b9f2aae.jpeg",
@@ -12,12 +13,12 @@
     "static/media/slick.ttf": "/static/media/slick.c94f7671dcc99dce43e2.ttf",
     "static/media/slick.woff": "/static/media/slick.295183786cd8a1389865.woff",
     "index.html": "/index.html",
-    "main.0add143e.css.map": "/static/css/main.0add143e.css.map",
-    "main.3bcbfb43.js.map": "/static/js/main.3bcbfb43.js.map",
+    "main.7d2b0de8.css.map": "/static/css/main.7d2b0de8.css.map",
+    "main.150900b0.js.map": "/static/js/main.150900b0.js.map",
     "787.cda612ba.chunk.js.map": "/static/js/787.cda612ba.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.0add143e.css",
-    "static/js/main.3bcbfb43.js"
+    "static/css/main.7d2b0de8.css",
+    "static/js/main.150900b0.js"
   ]
 }
