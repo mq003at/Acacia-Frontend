@@ -9,7 +9,7 @@
 ![Generic badge](https://img.shields.io/badge/Jest-v.29.0.3-white.svg)
 ![Generic badge](https://img.shields.io/badge/Router-v.6.6-lightyellow.svg)
 
-Deployment: [Link](https://mq003at.github.io/mq003at.github.io-css-sass/)
+Deployment: [Link](https://azure-main.azurewebsites.net/)
 
 <details>
 <summary>Open Project Structure</summary>
