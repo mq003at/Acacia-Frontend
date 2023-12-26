@@ -1,16 +1,25 @@
-# Front-end Project
+# Welcome to Acacia-Frontend
+Acacia is a website written in ReactJS with Typescript. It is connected to a backend server coded with ASP.Net and uses Postgresql as its database. Normally, the site is hosted on Azure but the backend has been taken down due to the lack of funds running backend server for a long time
 
-![Generic badge](https://img.shields.io/badge/JS-ES6-yellow.svg)
+<ins>Demo</ins>: Will be updated when the backend situation is solved. 
+
+# Tech used
 ![Generic badge](https://img.shields.io/badge/SCSS-v.1.57-red.svg)
 ![Generic badge](https://img.shields.io/badge/Redux-v.8.0.5-orangered.svg)
 ![Generic badge](https://img.shields.io/badge/MUI-v.5.11-darkblue.svg)
 ![Generic badge](https://img.shields.io/badge/TS-v.4.9-blue.svg)
 ![Generic badge](https://img.shields.io/badge/React-v.18.2-orange.svg)
-![Generic badge](https://img.shields.io/badge/Jest-v.29.0.3-white.svg)
+![Generic badge](https://img.shields.io/badge/Jest-v.27.5-white.svg)
 ![Generic badge](https://img.shields.io/badge/Router-v.6.6-lightyellow.svg)
 
-Deployment: [Link](https://azure-main.azurewebsites.net/)
+# Guide
+## 1. How to install and run the project locally
+Just like with any ReactJS app, you can run **npm run start**. It is recommended to run the project in Chromium browsers like Chrome, Edge, Brave, etc.
 
+## 2. Usage
+Will be updated in the future when the backend situation is resolved.
+
+# Project Structure
 <details>
 <summary>Open Project Structure</summary>
 
@@ -72,27 +81,3 @@ Deployment: [Link](https://azure-main.azurewebsites.net/)
 ```
 </details>
 
-## Instruction to start the project
-
-In the project directory, you can run:
-
-### `npm install`
-
-Install all the dependencies
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
